@@ -29,7 +29,6 @@ function Form() {
     const response = await axios.post(url, body, {}).catch((error) => {
       console.log(error);
     });
-    console.log(response.data.code);
     response.data.code ? setCode(response.data.code) : setError(true);
   };
 
@@ -39,8 +38,6 @@ function Form() {
     const response = await axios.get(url).catch((error) => {
       console.log(error);
     });
-    console.log(plus_number);
-    console.log(response.data.data);
     for (let num in response.data.data) {
       if (plus_number === response.data.data[num].phone_number) {
         const userSID = response.data.data[num].sid;
@@ -53,7 +50,6 @@ function Form() {
           .catch((error) => {
             console.log(error);
           });
-        console.log(userSID);
         secondResponse.data.message
           ? setDeletionSuccess(secondResponse.data.message)
           : setError(true);
