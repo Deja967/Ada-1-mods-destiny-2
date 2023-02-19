@@ -12,13 +12,13 @@ There were no other reminders outside of email or checking the bungie app to che
         
     Installation  - If running locally
     * Please install the packages from the requirements.txt file in the folder -> bungie-vendor-text
-    * Please make sure you have all of your credentials and keys set in a .env file or a creds.json file
+    * Please make sure you have all of your credentials and keys set in a .env
     
 
 # Running Locally for Client and Server
 ## the client folder includes a form for react that allows people to add their numbers to the Twilio SMS service to recieve text messages
-* Enter client folder and install all npm packages -> will be listed below
-*npm start
+* Enter client folder and install all npm packages
+* npm start
 
 ## the server folder includes the API backend service that makes the calls To the twilio service to recieve text messages
 * Please enter your Twilio credentials to access the API's HTTP request
