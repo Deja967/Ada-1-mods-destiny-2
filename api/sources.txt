@@ -1,0 +1,9 @@
+# https://bungie-net.github.io/multi/operation_post_Destiny2-SearchDestinyPlayerByBungieName.html#operation_post_Destiny2-SearchDestinyPlayerByBungieName
+# https://www.bungie.net/platform/destiny2/help/HelpDetail/POST?uri=SearchDestinyPlayerByBungieName%2F%7BmembershipType%7D%2F
+# http://destinydevs.github.io/BungieNetPlatform/docs/API-Test
+# https://data.destinysets.com/api/Destiny2.GetLinkedProfiles?membershipType=2
+# https://www.postman.com/api-evangelist/workspace/bungie/collection/35240-6fdaf95f-e9e4-47cc-b8c3-9b66c0eb6fd4?ctx=documentation
+# components query information: https://bungie-net.github.io/multi/schema_Destiny-DestinyComponentType.html
+
+
+# OAuth Authorization URL https://www.bungie.net/en/OAuth/Authorize
