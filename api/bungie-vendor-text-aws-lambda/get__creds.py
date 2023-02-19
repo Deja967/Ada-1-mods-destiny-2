@@ -9,7 +9,6 @@ def get_secret():
     secret_name = config.get("SECRET_NAME")
     region_name = config.get("REGION_NAME")
 
-    # Create a Secrets Manager client
     session = boto3.session.Session()
     client = session.client(
         service_name='secretsmanager',
@@ -35,7 +34,6 @@ def get_secret():
         "BUNGIE_ACCOUNT_NAME": results[config.get("BUNGIE_ACCOUNT_NAME_VALUE")],
         "BUNGIE_ACCOUNT_CODE": results[config.get("BUNGIE_ACCOUNT_CODE_VALUE")],
         "SENDING_NUMBER": results[config.get("SENDING_NUMBER_VALUE")],
-        "RECEIVING_NUMBERS": results[config.get("RECEIVING_NUMBERS_VALUE")]
     }
     return data
 

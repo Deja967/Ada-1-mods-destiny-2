@@ -8,6 +8,8 @@ client = Client(get_secret().get('ACCOUNT_SID'), get_secret().get("AUTH_TOKEN"))
 url = "https://www.bungie.net/Platform"
 get_auth_token = "https://www.bungie.net/Platform/App/OAuth/Token"
 headers = {"X-API-KEY": get_secret().get('API_KEY')}
+base_url = "https://api.twilio.com/2010-04-01"
+page_size = 20
 
 
 def lambda_handler(event=None, context=None):
@@ -90,13 +92,13 @@ def define_item(bounties, access_token):
 
 
 def get_item(item):
-    with open('creds.json', 'r') as f:
-        creds = json.load(f)
-    numbers = creds['phone_numbers']
-    for receiver in numbers:
+    numbers = r.get(f"{base_url}/Accounts/{get_secret().get('ACCOUNT_SID')}/OutgoingCallerIds.json?PageSize={page_size}",
+                    auth=HTTPBasicAuth(get_secret().get('ACCOUNT_SID'), get_secret().get("AUTH_TOKEN")))
+    response = numbers.json()
+    for x in range(len(response['outgoing_caller_ids'])):
         client.messages.create(
-            to=receiver,
-            from_=get_secret().get('SENDING_NUMBER'),
+            to=response['outgoing_caller_ids'][x]['phone_number'],
+            from_=get_secret().get("SENDING_NUMBER"),
             body=f"Reset has hit, here are the mods Ada-1 is selling today  "
                  f"\n\n{item[0]}, \n{item[1]}, \n{item[2]}, \n{item[3]}")
 

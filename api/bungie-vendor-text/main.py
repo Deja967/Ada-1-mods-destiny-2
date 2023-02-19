@@ -1,36 +1,35 @@
 import requests as r
 from dotenv import load_dotenv
+from decouple import config
 from twilio.rest import Client
-import os
-import json
 from requests.auth import HTTPBasicAuth
 
 load_dotenv()
-api_key = os.getenv("API_KEY")
-account_name = os.getenv("BUNGIE_ACCOUNT_NAME")
-account_code = os.getenv("BUNGIE_ACCOUNT_CODE")
-client_id = os.getenv("CLIENT_ID")
-client_secret = os.getenv("CLIENT_SECRET")
-account_sid = os.getenv("ACCOUNT_SID")
-auth_token = os.getenv("AUTH_TOKEN")
+api_key = config("API_KEY_VALUE")
+refresh_token = config("REFRESH_TOKEN_VALUE")
+account_name = config("BUNGIE_ACCOUNT_NAME_VALUE")
+account_code = config("BUNGIE_ACCOUNT_CODE_VALUE")
+client_id = config("CLIENT_ID_VALUE")
+client_secret = config("CLIENT_SECRET_VALUE")
+sending = config("SENDING_NUMBER_VALUE")
+url = config("GEN_URL")
+get_auth_token = config("AUTH_URL_LINK")
+
+
+account_sid = config("ACCOUNT_SID_VALUE")
+auth_token = config("AUTH_TOKEN_VALUE")
+page_size = config("PAGE_SIZE")
+base_url = config("BASE_URL_VALUE")
 client = Client(account_sid, auth_token)
-url = "https://www.bungie.net/Platform"
 headers = {"X-API-KEY": api_key}
-
 authorization_url = f"https://www.bungie.net/en/OAuth/Authorize?client_id={client_id}&response_type=code"
-get_auth_token = "https://www.bungie.net/Platform/App/OAuth/Token"
-
-sending = os.getenv("SENDING_NUMBER")
 
 
 def lambda_handler(event=None, context=None):
-    refresh_token(account_name, account_code)
+    get_access_token(account_name, account_code)
 
 
-def refresh_token(display_name, display_name_code):
-    with open('creds.json', 'r') as f:
-        creds = json.load(f)
-    refresh_token = creds['refresh_token']
+def get_access_token(display_name, display_name_code):
     token_headers = {
         'Content-Type': "application/x-www-form-urlencoded",
     }
@@ -106,13 +105,11 @@ def define_item(bounties, access_token):
 
 
 def get_item(item):
-    with open('creds.json', 'r') as f:
-        creds = json.load(f)
-    numbers = creds['phone_numbers']
-    print(numbers)
-    for receiver in numbers:
+    numbers = r.get(f"{base_url}/Accounts/{account_sid}/OutgoingCallerIds.json?PageSize={page_size}", auth=HTTPBasicAuth(account_sid, auth_token))
+    response = numbers.json()
+    for x in range(len(response['outgoing_caller_ids'])):
         client.messages.create(
-            to=receiver,
+            to=response['outgoing_caller_ids'][x]['phone_number'],
             from_=sending,
             body=f"Reset has hit, here are the mods Ada-1 is selling today  "
                  f"\n\n{item[0]}, \n{item[1]}, \n{item[2]}, \n{item[3]}")
