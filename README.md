@@ -16,10 +16,15 @@ There were no other reminders outside of email or checking the bungie app to che
     
 
 # Running Locally for Client and Server
-## the client folder includes a form for react that allows people to add their numbers to the twilio SMS service to recieve text messages
+## the client folder includes a form for react that allows people to add their numbers to the Twilio SMS service to recieve text messages
 * Enter client folder and install all npm packages -> will be listed below
 *npm start
 
-## the server folder includes the API backend service that makes the calls for to the twilio service to recieve text messages
-* Please enter your twilio credentials to access the API's HTTP request
+## the server folder includes the API backend service that makes the calls To the twilio service to recieve text messages
+* Please enter your Twilio credentials to access the API's HTTP request
 * Run node index.js
+
+
+
+# Client form for the service
+![github-read-me](https://user-images.githubusercontent.com/64509047/219961300-1a45014f-fc6a-4f0f-8235-be38db8b8f35.png)
