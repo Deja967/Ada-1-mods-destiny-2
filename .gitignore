@@ -4,3 +4,4 @@
 /api/bungie-vendor-text/.env
 /api/bungie-vendor-text/creds.json
 /api/bungie-vendor-text-aws-lambda/creds.json
+/api/bungie-vendor-text-aws-lambda/.env

@@ -1,11 +1,13 @@
 import boto3
 import json
 from botocore.exceptions import ClientError
+from dotenv import dotenv_values
+config = dotenv_values(".env")
 
 
 def get_secret():
-    secret_name = "dev/ada/auth"
-    region_name = "us-east-1"
+    secret_name = config.get("SECRET_NAME")
+    region_name = config.get("REGION_NAME")
 
     # Create a Secrets Manager client
     session = boto3.session.Session()
@@ -23,17 +25,17 @@ def get_secret():
     secret = get_secret_value_response['SecretString']
     results = json.loads(secret)
     data = {
-        "API_KEY": results["API_KEY"],
-        "ACCESS_TOKEN": results["ACCESS_TOKEN"],
-        "REFRESH_TOKEN": results["REFRESH_TOKEN"],
-        "CLIENT_ID": results["CLIENT_ID"],
-        "CLIENT_SECRET": results["CLIENT_SECRET"],
-        "ACCOUNT_SID": results["ACCOUNT_SID"],
-        "AUTH_TOKEN": results["AUTH_TOKEN"],
-        "BUNGIE_ACCOUNT_NAME": results["BUNGIE_ACCOUNT_NAME"],
-        "BUNGIE_ACCOUNT_CODE": results["BUNGIE_ACCOUNT_CODE"],
-        "SENDING_NUMBER": results["SENDING_NUMBER"],
-        "RECEIVING_NUMBERS": results["RECEIVING_NUMBERS"]
+        "API_KEY": results[config.get("API_KEY_VALUE")],
+        "ACCESS_TOKEN": results[config.get("ACCESS_TOKEN_VALUE")],
+        "REFRESH_TOKEN": results[config.get("REFRESH_TOKEN_VALUE")],
+        "CLIENT_ID": results[config.get("CLIENT_ID_VALUE")],
+        "CLIENT_SECRET": results[config.get("CLIENT_SECRET_VALUE")],
+        "ACCOUNT_SID": results[config.get("ACCOUNT_SID_VALUE")],
+        "AUTH_TOKEN": results[config.get("AUTH_TOKEN_VALUE")],
+        "BUNGIE_ACCOUNT_NAME": results[config.get("BUNGIE_ACCOUNT_NAME_VALUE")],
+        "BUNGIE_ACCOUNT_CODE": results[config.get("BUNGIE_ACCOUNT_CODE_VALUE")],
+        "SENDING_NUMBER": results[config.get("SENDING_NUMBER_VALUE")],
+        "RECEIVING_NUMBERS": results[config.get("RECEIVING_NUMBERS_VALUE")]
     }
     return data
 
